@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta de Presentación Digital - José Del Cid</title>
+        
+    <!-- Tailwind CSS para estilos rápidos y responsivos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+        
+    <!-- Font Awesome para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
+    <!-- Google Fonts para una tipografía elegante -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- QRCode library para la funcionalidad QR -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f0f0;
+            background-image: 
+                radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.5) 0%, rgba(255,255,255,0) 30%),
+                radial-gradient(circle at 0% 100%, rgba(255, 255, 255, 0.5) 0%, rgba(255,255,255,0) 30%);
+        }
+        .font-montserrat-extrabold {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+        }
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Gradiente azul metálico (#007BFF) para los botones */
+        .gold-gradient {
+            background: linear-gradient(145deg, #3395ff, #007bff, #0056b3);
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.35), 
+                        inset 0 1px 1px rgba(255, 255, 255, 0.6);
+        }
+        /* Efecto presionado para los botones */
+        .button-3d:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        /* Sombra de texto para legibilidad en los botones */
+        .text-shadow {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        /* Color del nombre y el logo */
+        .name-color {
+            color: #007bff;
+        }
+        /* Estilo para el icono circular del botón */
+        .icon-bg {
+            background: linear-gradient(145deg, #66b2ff, #007bff);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2), 
+                        inset 0 1px 1px rgba(255,255,255,0.7), 
+                        inset 0 -1px 1px rgba(0,0,0,0.2);
+        }
+        /* Color del ícono dentro del círculo */
+        .icon-color {
+            color: #ffffff;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            transition: all 0.2s ease-in-out;
+        }
+        /* Definición de gradiente para el logo SVG */
+        .logo-gradient {
+            fill: url(#logoGradient);
+        }
+        .social-icon:hover {
+            color: #007bff;
+        }
+        /* Estilo para la pestaña activa en el popup de instalación */
+        .install-tab-active {
+            border-bottom-width: 2px;
+            --tw-border-opacity: 1;
+            border-color: #007bff;
+            color: #007bff;
+        }
+        .course-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .course-details.open {
+            max-height: 500px;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        /* Estilo de fondo azul neón con overlay para contraste */
+        .futuristic-card-bg {
+            background-image: url('https://i.postimg.cc/mZ96Qxqv/Centro-de-control-futurista-azul-neon.png');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen sm:p-4">
+    <div class="w-full sm:max-w-sm mx-auto futuristic-card-bg rounded-none sm:rounded-3xl overflow-hidden relative shadow-2xl border border-cyan-500/30">
+        
+        <!-- Icono Izquierdo: Instalar Tarjeta -->
+        <a href="#" id="installButton" title="Instalar en mi dispositivo" class="absolute top-4 left-4 z-20 w-12 h-12 bg-black/40 backdrop-blur-md border border-cyan-400/30 rounded-full flex items-center justify-center text-white social-icon transition-colors duration-300" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">
+            <i class="fas fa-mobile-screen-button text-2xl"></i>
+        </a>
+
+        <!-- Definiciones SVG para gradientes -->
+        <svg width="0" height="0" style="position:absolute">
+            <defs>
+                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#3395ff;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#007bff;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+        </svg>
+
+        <!-- Sección superior con imagen -->
+        <div class="relative text-center pb-8">
+            <div class="absolute top-0 left-0 w-full h-[320px]">
+                <img src="https://i.postimg.cc/mDH16SWm/Retrato-corporativo-tecnologico-NPD.png"
+                     alt="Retrato corporativo tecnológico NPD" 
+                     class="w-full h-full object-cover object-top"
+                     id="headerImage">
+                <div class="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[#060e20] via-[#060e20]/80 to-transparent"></div>
+            </div>
+            
+            <div class="relative z-10 pt-[280px]">
+                <!-- Logo del usuario -->
+                <div class="flex justify-center mb-3 relative z-10">
+                    <img src="https://i.postimg.cc/N5jrJqQG/12-logo-principal-redes.jpg" 
+                         alt="Logo NeoPlexDigital" 
+                         class="w-20 h-20 rounded-full object-cover border-2 border-cyan-400/70 shadow-lg shadow-cyan-500/30">
+                </div>
+
+                <!-- Nombre y Título -->
+                <div class="mt-2 relative z-10">
+                    <h1 class="font-montserrat-extrabold text-3xl sm:text-4xl tracking-wider uppercase text-white drop-shadow-lg">
+                        JOSÉ DEL CID
+                    </h1>
+                    <p class="font-montserrat-extrabold text-sm tracking-[0.2em] text-cyan-300 mt-2">NeoPlexDigital</p>
+                </div>
+
+                <!-- Mensaje de Bienvenida -->
+                <div class="mt-8 relative z-10">
+                    <h2 class="text-2xl font-light text-white drop-shadow">¡Bienvenida(o)!</h2>
+                    <p class="text-xs text-cyan-200/80 mt-1 tracking-wider font-semibold">TOCA LOS ICONOS PARA INTERACTUAR</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6 pt-4 space-y-5 rounded-b-3xl bg-slate-950/40 backdrop-blur-sm">
+            
+            <!-- Botón 1: Servicios Digitales -->
+            <a href="#" id="coursesButton" class="relative flex items-center h-14 rounded-full gold-gradient button-3d group transition-transform duration-150 ease-in-out">
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full flex items-center justify-center icon-bg">
+                    <i class="fas fa-laptop-code text-2xl icon-color group-hover:scale-110 transition-transform"></i>
+                </div>
+                <span class="pl-16 pr-4 text-left text-white text-xs sm:text-sm font-montserrat-extrabold uppercase tracking-wider text-shadow">Servicios Digitales</span>
+            </a>
+
+            <!-- Botón 2: Guardar Contacto -->
+            <a href="#" id="saveContactButton" download="jose-del-cid.vcf" class="relative flex items-center h-14 rounded-full gold-gradient button-3d group transition-transform duration-150 ease-in-out">
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full flex items-center justify-center icon-bg">
+                    <i class="fas fa-address-card text-2xl icon-color group-hover:scale-110 transition-transform"></i>
+                </div>
+                <span class="pl-16 pr-4 text-left text-white text-xs sm:text-sm font-montserrat-extrabold uppercase tracking-wider text-shadow">Guardar Contacto</span>
+            </a>
+
+            <!-- Botón 3: Compartir QR -->
+            <a href="#" id="qrButton" class="relative flex items-center h-14 rounded-full gold-gradient button-3d group transition-transform duration-150 ease-in-out">
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full flex items-center justify-center icon-bg">
+                    <i class="fas fa-qrcode text-2xl icon-color group-hover:scale-110 transition-transform"></i>
+                </div>
+                <span class="pl-16 pr-4 text-left text-white text-xs sm:text-sm font-montserrat-extrabold uppercase tracking-wider text-shadow">Compartir QR</span>
+            </a>
+
+            <!-- Botón 4: WhatsApp (Quiero mi tarjeta digital) -->
+            <a href="https://wa.me/50762861839?text=Quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20la%20Tarjeta%20de%20Presentaci%C3%B3n%20Digital" target="_blank" class="relative flex items-center h-14 rounded-full gold-gradient button-3d group transition-transform duration-150 ease-in-out">
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full flex items-center justify-center icon-bg">
+                    <i class="fab fa-whatsapp text-3xl icon-color group-hover:scale-110 transition-transform"></i>
+                </div>
+                <span class="pl-16 pr-4 text-left text-white text-xs sm:text-sm font-montserrat-extrabold uppercase tracking-wider text-shadow leading-tight">Quiero mi tarjeta digital</span>
+            </a>
+
+            <!-- Pie de página con correo y redes sociales -->
+            <div class="text-center pt-4 border-t border-cyan-500/20 mt-5">
+                <div class="text-cyan-200 inline-flex items-center space-x-2 text-sm select-all">
+                    <i class="fas fa-envelope"></i>
+                    <span>neoplexdigital@gmail.com</span>
+                </div>
+                                
+                <!-- Redes Sociales -->
+                <div class="mt-4">
+                    <p class="text-xs text-cyan-200/70 mb-2 tracking-wider">SÍGUENOS</p>
+                    <div class="flex justify-center space-x-5">
+                        <a href="https://www.facebook.com/profile.php?id=61595138799541&locale=es_LA" target="_blank" class="text-cyan-200 hover:text-blue-400 transition-colors duration-300">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="https://www.instagram.com/josedelcidmkt/" target="_blank" class="text-cyan-200 hover:text-blue-400 transition-colors duration-300">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup del Código QR -->
+    <div id="qrPopup" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 hidden transition-opacity duration-300">
+        <div class="bg-[#FFFBF5] rounded-2xl p-8 pt-6 text-center shadow-xl relative max-w-xs w-full transform transition-transform duration-300 scale-95">
+            <button id="closeQrPopup" class="absolute top-2 right-2 text-white bg-[#ad853d] rounded-full h-8 w-8 flex items-center justify-center text-lg hover:bg-[#b48521] focus:outline-none transition-colors">&times;</button>
+            <h3 class="text-xl font-medium mb-4 font-playfair text-[#8c6422]">Escanea para Compartir</h3>
+            <div id="qrcode" class="flex justify-center p-2 bg-white border border-[#e7c66c] rounded-lg shadow-inner"></div>
+            <p class="text-xs text-gray-500 mt-4">Apunta la cámara de tu teléfono a este código para abrir la tarjeta.</p>
+        </div>
+    </div>
+
+    <!-- Popup de Servicios Digitales -->
+    <div id="coursesPopup" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 hidden transition-opacity duration-300">
+        <div class="bg-[#FFFBF5] rounded-2xl p-6 shadow-xl relative max-w-sm w-full transform transition-transform duration-300 scale-95 max-h-[90vh] overflow-y-auto">
+            <button id="closeCoursesPopup" class="absolute top-2 right-2 text-white bg-[#ad853d] rounded-full h-8 w-8 flex items-center justify-center text-lg hover:bg-[#b48521] focus:outline-none z-20 transition-colors">&times;</button>
+            <div class="text-center">
+                <h3 class="text-2xl font-medium mb-2 font-playfair text-[#8c6422]">Servicios Digitales</h3>
+                <p class="text-sm text-gray-600 mb-6">Impulsa tus proyectos con nuestras herramientas y soluciones digitales avanzadas.</p>
+            </div>
+            <div class="space-y-4">
+                <!-- Servicio 1: Streaming & Cuentas Digitales -->
+                <div class="bg-white border border-transparent rounded-lg p-3 transition-all duration-300 hover:shadow-md hover:border-[#e7c66c]">
+                    <div class="flex items-center">
+                        <img src="https://i.postimg.cc/s1Z1XY3f/Caja-de-Streaming-Neon-Futurista.png" alt="Servicios de Streaming" class="w-24 h-32 object-cover rounded-md" onerror="this.src='https://placehold.co/96x128/007bff/ffffff?text=Streaming'">
+                        <div class="pl-4">
+                            <h4 class="font-semibold text-gray-800">Servicios de Streaming</h4>
+                            <p class="text-xs text-gray-500 mt-1">Plataformas de entretenimiento y licencias digitales con activación inmediata.</p>
+                            <button class="course-info-toggle text-xs font-bold name-color mt-2 inline-block">MÁS INFO &rarr;</button>
+                        </div>
+                    </div> 
+                    <div class="course-details">
+                        <ul class="text-xs text-gray-600 text-left space-y-1 mt-3 border-t pt-3">
+                            <li><strong>Servicio:</strong> Cuentas y Pantallas de Streaming</li>
+                            <li><strong>Incluye:</strong> Acceso a plataformas populares, calidad HD/4K y soporte continuo.</li>
+                            <li><strong>Consúltanos:</strong> <a href="https://wa.me/50762861839?text=Quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20los%20servicios%20de%20Streaming" target="_blank" class="text-green-600 hover:text-green-700 font-semibold underline inline-flex items-center gap-1"><i class="fab fa-whatsapp text-sm"></i> Vía WhatsApp para catálogo</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Servicio 2: ChatGPT Plus -->
+                <div class="bg-white border border-transparent rounded-lg p-3 transition-all duration-300 hover:shadow-md hover:border-[#e7c66c]">
+                    <div class="flex items-center">
+                        <img src="https://i.postimg.cc/rF7QYf4w/Imagen-de-Chat-GPT-11-oct-2026-07-55-27-3.png" alt="ChatGPT Plus" class="w-24 h-32 object-cover rounded-md" onerror="this.src='https://placehold.co/96x128/007bff/ffffff?text=ChatGPT'">
+                        <div class="pl-4">
+                            <h4 class="font-semibold text-gray-800">ChatGPT Plus</h4>
+                            <p class="text-xs text-gray-500 mt-1">Acceso a GPT-4o, análisis de datos, creación de imágenes y soporte avanzado de IA.</p>
+                            <button class="course-info-toggle text-xs font-bold name-color mt-2 inline-block">MÁS INFO &rarr;</button>
+                        </div>
+                    </div> 
+                    <div class="course-details">
+                        <ul class="text-xs text-gray-600 text-left space-y-1 mt-3 border-t pt-3">
+                            <li><strong>Servicio:</strong> Cuenta / Subscripción ChatGPT Plus</li>
+                            <li><strong>Incluye:</strong> Respuestas más rápidas, acceso prioritario en horas pico y DALL-E 3.</li>
+                            <li><strong>Consúltanos:</strong> <a href="https://wa.me/50762861839?text=Quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20Chatgpt" target="_blank" class="text-green-600 hover:text-green-700 font-semibold underline inline-flex items-center gap-1"><i class="fab fa-whatsapp text-sm"></i> Vía WhatsApp para más detalles</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Servicio 3: CapCut Pro / Edición de Video -->
+                <div class="bg-white border border-transparent rounded-lg p-3 transition-all duration-300 hover:shadow-md hover:border-[#e7c66c]">
+                    <div class="flex items-center">
+                        <img src="https://i.postimg.cc/06J0Z6pR/Caja-tecnologica-Cap-Cut-Neoplex-Digital.png" alt="CapCut Pro" class="w-24 h-32 object-cover rounded-md" onerror="this.src='https://placehold.co/96x128/007bff/ffffff?text=CapCut'">
+                        <div class="pl-4">
+                            <h4 class="font-semibold text-gray-800">CapCut Pro</h4>
+                            <p class="text-xs text-gray-500 mt-1">Herramientas avanzadas de edición de video, efectos y exportación en alta definición.</p>
+                            <button class="course-info-toggle text-xs font-bold name-color mt-2 inline-block">MÁS INFO &rarr;</button>
+                        </div>
+                    </div> 
+                    <div class="course-details">
+                        <ul class="text-xs text-gray-600 text-left space-y-1 mt-3 border-t pt-3">
+                            <li><strong>Servicio:</strong> CapCut Pro &amp; Plantillas Premium</li>
+                            <li><strong>Incluye:</strong> Filtros pro, removida de fondos con IA, animaciones y efectos exclusivos.</li>
+                            <li><strong>Ideal para:</strong> Creadores de contenido, emprendedores y Reels / TikToks.</li>
+                            <li><strong>Consúltanos:</strong> <a href="https://wa.me/50762861839?text=Quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20CapCut" target="_blank" class="text-green-600 hover:text-green-700 font-semibold underline inline-flex items-center gap-1"><i class="fab fa-whatsapp text-sm"></i> Vía WhatsApp para más detalles</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Servicio 4: Canva Pro / Plantillas Digitales -->
+                <div class="bg-white border border-transparent rounded-lg p-3 transition-all duration-300 hover:shadow-md hover:border-[#e7c66c]">
+                    <div class="flex items-center">
+                        <img src="https://i.postimg.cc/0Q2gZ9MJ/Caja-de-Canva-Neoplex-Digital.png" alt="Canva Pro & Plantillas" class="w-24 h-32 object-cover rounded-md" onerror="this.src='https://placehold.co/96x128/007bff/ffffff?text=Canva+Pro'">
+                        <div class="pl-4">
+                            <h4 class="font-semibold text-gray-800">Kit Canva Pro</h4>
+                            <p class="text-xs text-gray-500 mt-1">Acceso a plantillas editables, recursos gráficos ilimitados y herramientas Pro de diseño.</p>
+                            <button class="course-info-toggle text-xs font-bold name-color mt-2 inline-block">MÁS INFO &rarr;</button>
+                        </div>
+                    </div> 
+                    <div class="course-details">
+                        <ul class="text-xs text-gray-600 text-left space-y-1 mt-3 border-t pt-3">
+                            <li><strong>Servicio:</strong> Kit de Plantillas &amp; Licencia Canva Pro</li>
+                            <li><strong>Incluye:</strong> Plantillas editables para redes sociales, fotos de stock premium y quita fondos en 1 clic.</li>
+                            <li><strong>Ideal para:</strong> Marcas personales, empresas y diseñadores.</li>
+                            <li><strong>Consúltanos:</strong> <a href="https://wa.me/50762861839?text=Quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20Canva" target="_blank" class="text-green-600 hover:text-green-700 font-semibold underline inline-flex items-center gap-1"><i class="fab fa-whatsapp text-sm"></i> Vía WhatsApp para adquirirlo</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup de Instalación -->
+    <div id="installPopup" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 hidden transition-opacity duration-300">
+        <div class="bg-[#FFFBF5] rounded-2xl p-6 shadow-xl relative max-w-sm w-full transform transition-transform duration-300 scale-95 max-h-[90vh] overflow-y-auto">
+            <button id="closeInstallPopup" class="absolute top-2 right-2 text-white bg-[#ad853d] rounded-full h-8 w-8 flex items-center justify-center text-lg hover:bg-[#b48521] focus:outline-none z-20 transition-colors">&times;</button>
+            <div class="text-center">
+                 <h3 class="text-2xl font-medium mb-2 font-playfair text-[#8c6422]">¿Cómo instalar en mi dispositivo?</h3>
+                <p class="text-sm text-gray-600 mb-4">Accede a mi tarjeta fácilmente desde tu pantalla de inicio.</p>
+            </div>
+
+            <!-- Pestañas (Tabs) -->
+            <div class="flex border-b mb-4">
+                <button id="iosTab" class="flex-1 p-2 font-semibold install-tab-active flex items-center justify-center gap-2">
+                    <i class="fab fa-apple"></i> iOS
+                </button>
+                <button id="androidTab" class="flex-1 p-2 font-semibold text-gray-400 flex items-center justify-center gap-2">
+                     <i class="fab fa-android"></i> Android
+                </button>
+            </div>
+
+            <!-- Contenido iOS -->
+            <div id="iosInstructions">
+                <ol class="list-decimal list-inside space-y-3 text-left text-sm text-gray-700">
+                    <li>Abre esta página en <strong>Safari</strong>.</li>
+                    <li>Toca el icono de <strong>Compartir</strong> <i class="fas fa-share-square name-color"></i> en la barra de navegación.</li>
+                    <li>Desliza hacia arriba y selecciona <strong>"Añadir a la pantalla de inicio"</strong> <i class="fas fa-plus-square name-color"></i>.</li>
+                    <li>Confirma el nombre y toca <strong>"Añadir"</strong>.</li>
+                </ol>
+            </div>
+
+            <!-- Contenido Android -->
+            <div id="androidInstructions" class="hidden">
+                 <ol class="list-decimal list-inside space-y-3 text-left text-sm text-gray-700">
+                    <li>Abre esta página en <strong>Chrome</strong>.</li>
+                    <li>Toca los <strong>tres puntos</strong> <i class="fas fa-ellipsis-v name-color"></i> en la esquina superior derecha.</li>
+                    <li>Selecciona <strong>"Añadir a pantalla de inicio"</strong> o <strong>"Instalar aplicación"</strong>.</li>
+                    <li>Confirma y pulsa <strong>"Añadir"</strong>.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const qrcodeContainer = document.getElementById("qrcode");
+            if (qrcodeContainer && typeof QRCode !== 'undefined') {
+                // Enlace explícito actualizado para el código QR
+                const cardUrl = "https://josedelcidmkt.github.io/neoplexdigital/";
+
+                new QRCode(qrcodeContainer, {
+                    text: cardUrl,
+                    width: 160,
+                    height: 160,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+            }
+
+            // Manejo genérico de Popups
+            function setupPopup(buttonId, popupId, closeId) {
+                const btn = document.getElementById(buttonId);
+                const popup = document.getElementById(popupId);
+                const closeBtn = document.getElementById(closeId);
+
+                if (btn && popup) {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        popup.classList.remove('hidden');
+                        setTimeout(() => {
+                            const modalContent = popup.querySelector('div > div');
+                            if (modalContent) {
+                                modalContent.classList.remove('scale-95');
+                                modalContent.classList.add('scale-100');
+                            }
+                        }, 10);
+                    });
+                }
+
+                if (closeBtn && popup) {
+                    closeBtn.addEventListener('click', () => {
+                        popup.classList.add('hidden');
+                    });
+                }
+
+                if (popup) {
+                    popup.addEventListener('click', (e) => {
+                        if (e.target === popup) {
+                            popup.classList.add('hidden');
+                        }
+                    });
+                }
+            }
+
+            setupPopup('qrButton', 'qrPopup', 'closeQrPopup');
+            setupPopup('coursesButton', 'coursesPopup', 'closeCoursesPopup');
+            setupPopup('installButton', 'installPopup', 'closeInstallPopup');
+
+            // Acordeón para Cursos / Servicios
+            const courseToggles = document.querySelectorAll('.course-info-toggle');
+            courseToggles.forEach(toggle => {
+                toggle.addEventListener('click', function () {
+                    const details = this.closest('.bg-white').querySelector('.course-details');
+                    details.classList.toggle('open');
+                    this.textContent = details.classList.contains('open') ? 'MENOS INFO \u2191' : 'MÁS INFO \u2192';
+                });
+            });
+
+            // Pestañas de Instalación (iOS / Android)
+            const iosTab = document.getElementById('iosTab');
+            const androidTab = document.getElementById('androidTab');
+            const iosInstructions = document.getElementById('iosInstructions');
+            const androidInstructions = document.getElementById('androidInstructions');
+
+            if (iosTab && androidTab) {
+                iosTab.addEventListener('click', () => {
+                    iosTab.classList.add('install-tab-active');
+                    iosTab.classList.remove('text-gray-400');
+                    androidTab.classList.remove('install-tab-active');
+                    androidTab.classList.add('text-gray-400');
+                    iosInstructions.classList.remove('hidden');
+                    androidInstructions.classList.add('hidden');
+                });
+
+                androidTab.addEventListener('click', () => {
+                    androidTab.classList.add('install-tab-active');
+                    androidTab.classList.remove('text-gray-400');
+                    iosTab.classList.remove('install-tab-active');
+                    iosTab.classList.add('text-gray-400');
+                    androidInstructions.classList.remove('hidden');
+                    iosInstructions.classList.add('hidden');
+                });
+            }
+
+            // Generación de archivo VCF (Guardar Contacto)
+            const saveContactButton = document.getElementById('saveContactButton');
+            if (saveContactButton) {
+                saveContactButton.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const vCardData = [
+                        "BEGIN:VCARD",
+                        "VERSION:3.0",
+                        "FN:José Del Cid",
+                        "N:Del Cid;José;;;",
+                        "TITLE:NeoPlexDigital",
+                        "TEL;TYPE=WORK,VOICE:+50762861839",
+                        "EMAIL;TYPE=PREF,INTERNET:neoplexdigital@gmail.com",
+                        "URL:https://wa.me/50762861839",
+                        "NOTE:Tarjeta de Presentación Digital - NeoPlexDigital",
+                        "END:VCARD"
+                    ].join("\n");
+
+                    const blob = new Blob([vCardData], { type: "text/vcard;charset=utf-8;" });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'jose-del-cid.vcf');
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
